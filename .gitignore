@@ -1,0 +1,104 @@
+# General patterns
+*.log
+*.tmp
+*.temp
+*.swp
+*.bak
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore build directories
+/build/
+/dist/
+
+# Ignore compiled files
+*.o
+*.obj
+*.elf
+*.exe
+*.out
+*.hex
+*.bin
+
+# Ignore dependencies and package directories
+/node_modules/
+/vendor/
+/packages/
+
+# Ignore environment variable files
+.env
+
+# Specific to SystemVerilog (SV) projects
+# Ignore simulation tool generated files and directories
+*.vcd
+*.wlf
+*.asdb
+/questasim/
+/modelsim/
+/work/
+/csrc/
+/simv
+/ucli.key
+
+# Ignore coverage and analysis files
+*.ucdb
+*.daidir
+*.synlog
+*.synproj
+
+# Ignore synthesis tool generated files and directories
+*.edf
+*.log
+*.jou
+*.pb
+*.dcp
+
+# Ignore FPGA and ASIC tool generated files and directories
+*.rpt
+*.summary
+*.qws
+*.qpf
+*.qsf
+*.sof
+*.pof
+*.sdc
+*.pin
+*.xrf
+*.xise
+*.bit
+*.drc
+
+# Ignore Verilog generated files
+*.vvp
+*.vcd
+*.syn
+
+# Other tool-specific files and directories
+/cadence/
+/synopsys/
+/altera/
+/xilinx/
+
+# Ignore Visual Studio specific files and directories
+.vs/
+*.vcxproj
+*.user
+*.rsuser
+*.suo
+*.sln.docstates
+*.opendb
+*.VC.db
+*.VC.opendb
+
+# Ignore Visual Studio Code specific files and directories
+.vscode/
+*.code-workspace
+
+# Ignore backup and package directories
+_backup/
+_packages/
+
+# Ignore test result files
+TestResults/
