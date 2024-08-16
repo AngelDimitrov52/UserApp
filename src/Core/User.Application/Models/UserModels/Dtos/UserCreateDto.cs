@@ -1,11 +1,6 @@
-﻿using src.Core.Domain.Enums;
+﻿namespace src.Core.Application.Models.UserModels.Dtos;
 
-namespace src.Core.Application.Models.UserModels.Dtos
-{
-    public class UserCreateDto
+    public class UserCreateDto : UserBaseDto
     {
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public UserEnum Enum { get; set; }
+        public string Password { get; set; }
     }
-}

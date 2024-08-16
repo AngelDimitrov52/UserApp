@@ -6,7 +6,7 @@ namespace src.Core.Application.Models.UserModels.Interfaces
     public interface IUserService
     {
         User GetUser(int id);
-        IEnumerable<User> GetUsers();
+        IEnumerable<UserGetDto> GetUsers();
         void CreateUser(UserCreateDto user);
         public void UpdateUser(User user);
         public void DeleteUser(int id);

@@ -1,4 +1,5 @@
-﻿using src.Core.Application.Models.UserModels.Dtos;
+﻿using AutoMapper;
+using src.Core.Application.Models.UserModels.Dtos;
 using src.Core.Application.Models.UserModels.Interfaces;
 using src.Core.Domain.Entities;
 
@@ -7,10 +8,12 @@ namespace src.Core.Application.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepositor, IMapper mapper)
         {
-            _userRepository = userRepository;
+            _userRepository = userRepositor;
+            _mapper = mapper;
         }
 
         public User GetUser(int id)
@@ -18,9 +21,10 @@ namespace src.Core.Application.Services
             return _userRepository.GetById(id);
         }
 
-        public IEnumerable<User> GetUsers()
+        public IEnumerable<UserGetDto> GetUsers()
         {
-            return _userRepository.GetAll();
+            var users = _userRepository.GetAll();
+            return _mapper.Map<IEnumerable<UserGetDto>>(users);
         }
 
         public void CreateUser(UserCreateDto userDto)
@@ -28,10 +32,11 @@ namespace src.Core.Application.Services
             var user = new User
             {
                 Id = GenerateUserId(),
-                Name = userDto.Name,
+                Name = userDto.Username,
                 Email = userDto.Email
             };
 
+            user = _mapper.Map<User>(userDto);
             _userRepository.Add(user);
         }
 
