@@ -1,5 +1,6 @@
 ﻿namespace src.Core.Application.Models.UserModels.Dtos;
 
-public class UserGetDto : UserWithIdDto
+public class UserGetDto : UserBaseDto
 {
+    public int Id { get; set; }
 }

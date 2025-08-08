@@ -6,5 +6,6 @@ public class UserBaseDto
 {
     public string Username { get; set; }
     public string Email { get; set; }
-    public UserEnum Enum { get; set; }
+    
+    public UserType Type { get; set; }
 }

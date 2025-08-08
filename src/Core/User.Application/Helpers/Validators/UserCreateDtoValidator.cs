@@ -1,26 +1,21 @@
-﻿//using FluentValidation;
-
-using FluentValidation;
+﻿using FluentValidation;
 using src.Core.Application.Models.UserModels.Dtos;
 
 namespace src.Core.Application.Helpers.Validators
 {
     public class UserCreateDtoValidator : AbstractValidator<UserCreateDto>
     {
-        public UserCreateDtoValidator()
+        public UserCreateDtoValidator(
+            IValidator<UserBaseDto> userBaseDtoValidator)
         {
-            RuleFor(t => t.Email)
-                 .NotEmpty().WithMessage("Email can not be empty!")
-                    .NotNull().WithMessage("Email can not be null!")
-                    .Length(1, 100);
+            RuleFor(t => t.Password)
+                .NotNull().WithMessage("Password can not be null!")
+                .NotEmpty().WithMessage("Password can not be empty!")
+                .Length(5, 100).WithMessage("The Password must be between 5 and 50 characters long!");
             
-             RuleFor(user => user.Username)
-                 .NotEmpty().WithMessage("Username is required")
-                 .Length(1, 50).WithMessage("Username can't be longer than 50 characters");
-            
-             RuleFor(user => user.Email)
-                 .NotEmpty().WithMessage("Email is required")
-                 .EmailAddress().WithMessage("Invalid email format");
+             RuleFor(user => user)
+                 .SetValidator(userBaseDtoValidator);
+              
         }
     }
 }

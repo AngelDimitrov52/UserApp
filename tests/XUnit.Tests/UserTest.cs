@@ -14,14 +14,14 @@ namespace XUnitTestProject
                 Id = 1,
                 Name = "Angel",
                 Email = "Test@test.com",
-                Enum = UserEnum.User
+                Type = UserType.User
             };
 
             // Act
             Assert.Equal(1, user.Id);
             Assert.Equal("Angel", user.Name);
             Assert.Equal("Test@test.com", user.Email);
-            Assert.Equal(UserEnum.User, user.Enum);
+            Assert.Equal(UserType.User, user.Type);
         }
     }
 }

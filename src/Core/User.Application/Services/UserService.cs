@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using src.Core.Application.Models.UserModels.Dtos;
 using src.Core.Application.Models.UserModels.Interfaces;
 using src.Core.Domain.Entities;
@@ -10,47 +11,58 @@ namespace src.Core.Application.Services
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepositor, IMapper mapper)
+        public UserService(
+            IUserRepository userRepositor,
+            IMapper mapper)
         {
             _userRepository = userRepositor;
             _mapper = mapper;
         }
 
-        public User GetUser(int id)
-        {
-            return _userRepository.GetById(id);
-        }
-
-        public IEnumerable<UserGetDto> GetUsers()
+        public IEnumerable<UserGetDto> GetAll()
         {
             var users = _userRepository.GetAll();
-            return _mapper.Map<IEnumerable<UserGetDto>>(users);
+
+            var result = _mapper.Map<IEnumerable<UserGetDto>>(users);
+
+            return result;
         }
 
-        public void CreateUser(UserCreateDto userDto)
+        public UserGetDto GetById(int id) =>
+            _mapper.Map<UserGetDto>(_userRepository.GetById(id));
+
+        public UserGetDto Create(UserCreateDto userCreateDto)
         {
-            var user = new User
-            {
-                Id = GenerateUserId(),
-                Name = userDto.Username,
-                Email = userDto.Email
-            };
+            // Map the DTO to the User entity
+            var userCreate = _mapper.Map<User>(userCreateDto);
 
-            user = _mapper.Map<User>(userDto);
-            _userRepository.Add(user);
+            // Generate UserId
+            userCreate.Id = GenerateUserId();
+            
+            // Add User
+            var user = _userRepository.Add(userCreate);
+
+            //Map the User entity back to UserGetDto
+            var userGetDto = _mapper.Map<UserGetDto>(user);
+
+            //Return the UserGetDto
+            return userGetDto;
         }
 
-        public void UpdateUser(User user)
+        public UserGetDto Update(UserUpdateDto userUpdateDto)
         {
-            _userRepository.Update(user);
+            var userUpdate = _mapper.Map<User>(userUpdateDto);
+            
+            var user = _userRepository.Update(userUpdate);
+            
+            return _mapper.Map<UserGetDto>(user);
         }
 
-        public void DeleteUser(int id)
+        public void Delete(int id)
         {
             _userRepository.Delete(id);
         }
 
         private int GenerateUserId() => _userRepository.GetAll().Count() + 1;
-
     }
 }

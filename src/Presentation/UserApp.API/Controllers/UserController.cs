@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using src.Core.Application.Models.UserModels.Dtos;
 using src.Core.Application.Models.UserModels.Interfaces;
-using src.Core.Domain.Entities;
 
 namespace src.Presentation.Controllers
 {
@@ -17,35 +16,35 @@ namespace src.Presentation.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<User> Get()
+        public IEnumerable<UserGetDto> GetAll()
         {
-            return _userService.GetUsers();
+            return _userService.GetAll();
         }
 
         [HttpGet]
         [Route("{id}")]
-        public User GetById(int id)
+        public UserGetDto GetById(int id)
         {
-            return _userService.GetUser(id);
+            return _userService.GetById(id);
         }
 
         [HttpPost]
-        public void Post([FromBody] UserCreateDto user)
+        public UserGetDto Post([FromBody] UserCreateDto user)
         {
-            _userService.CreateUser(user);
+           return _userService.Create(user);
         }
 
         [HttpPut]
-        public void Put([FromBody] User user)
+        public UserGetDto Put([FromBody] UserUpdateDto user)
         {
-            _userService.UpdateUser(user);
+           return _userService.Update(user);
         }
 
         [HttpDelete]
         [Route("{id}")]
         public void Delete(int id)
         {
-            _userService.DeleteUser(id);
+            _userService.Delete(id);
         }
     }
 }

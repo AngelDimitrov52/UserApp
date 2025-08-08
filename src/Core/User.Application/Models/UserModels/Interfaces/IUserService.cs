@@ -5,10 +5,10 @@ namespace src.Core.Application.Models.UserModels.Interfaces
 {
     public interface IUserService
     {
-        User GetUser(int id);
-        IEnumerable<UserGetDto> GetUsers();
-        void CreateUser(UserCreateDto user);
-        public void UpdateUser(User user);
-        public void DeleteUser(int id);
+        IEnumerable<UserGetDto> GetAll();
+        UserGetDto GetById(int id);
+        UserGetDto Create(UserCreateDto user);
+        UserGetDto Update(UserUpdateDto user);
+        void Delete(int id);
     }
 }

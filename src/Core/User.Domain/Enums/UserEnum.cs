@@ -1,6 +1,6 @@
 ﻿namespace src.Core.Domain.Enums
 {
-    public enum UserEnum
+    public enum UserType
     {
         None = 0,
         Admin = 1,

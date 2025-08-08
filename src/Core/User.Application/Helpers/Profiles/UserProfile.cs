@@ -8,16 +8,20 @@ namespace src.Core.Application.Helpers.Profiles
     {
         public UserProfile()
         {
-            CreateMap<UserCreateDto, User>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Username)).ReverseMap();
+            // Map from UserGetDto to User
+            CreateMap<User, UserGetDto>()
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.Name));
             
-            // // Map from UserDTO to User
-            // CreateMap<UserCreateDto, User>()
-            //     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Username));
-            //
-            // // Map from User to UserDTO
-            // CreateMap<User, UserCreateDto>()
-            //     .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.Name));
+            // Map from UserCreateDto to User
+            CreateMap<UserCreateDto, User>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Username))
+                .ForMember(dest => dest.Created, opt => opt.MapFrom(src => DateTime.Now));
+                
+            // Map from UserUpdateDto to User
+            CreateMap<UserUpdateDto, User>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Username));
+
+            //.ReverseMap();
         }
     }
 }
