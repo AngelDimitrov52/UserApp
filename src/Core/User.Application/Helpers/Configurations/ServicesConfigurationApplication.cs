@@ -11,6 +11,13 @@ namespace src.Core.Application.Helpers.Configurations
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
+            // Get the current assembly where this code is located
+            // This is useful for registering services, repositories, and other components
+            // that are defined in the same assembly
+            // It allows you to use reflection to find types and register them
+            // without having to specify the assembly name explicitly
+            // This is particularly useful in modular applications
+            // where you want to keep the configuration code in a separate assembly
             var assembly = Assembly.GetExecutingAssembly();
             
             // Register AutoMapper with the current assembly
@@ -22,7 +29,6 @@ namespace src.Core.Application.Helpers.Configurations
             // and use them throughout your application
             // It also allows you to use AutoMapper's features like projection, flattening, etc
             // without having to manually configure them every time
-            
             services.AddAutoMapper(assembly);
             
             // Register FluentValidation with the current assembly
@@ -33,7 +39,6 @@ namespace src.Core.Application.Helpers.Configurations
             // and use them throughout your application
             // It also allows you to use FluentValidation's features like custom rules, conditions, etc
             // without having to manually configure them every time
-            
              services.AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(assembly));
         
